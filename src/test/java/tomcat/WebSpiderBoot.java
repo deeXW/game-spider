@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class WebSpiderBoot {
     private final Log     log           = LogFactory.getLog(getClass());
-    private static String CONTEXT_PATH  = "/webspider";
+    private static String CONTEXT_PATH  = "/game-spider";
     private static String PROJECT_PATH  = System.getProperty("user.dir");
     private static String WEB_APP_PATH  = PROJECT_PATH + "/src/main/webapp";
     private static String CATALINA_HOME = PROJECT_PATH + "/src/test/java/tomcat/";
