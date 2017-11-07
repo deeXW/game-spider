@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<toolbox>
+	<xhtml>true</xhtml>
+	<tool>
+	    <key>math</key>
+	    <scope>application</scope>
+	    <class>org.apache.velocity.tools.generic.MathTool</class>
+	</tool>
+	<!-- <tool>
+	    <key>res</key>
+	    <scope>application</scope>
+	    <class>com.zdf.tools.ResourcesTool</class>
+	</tool>
+	<tool>
+	    <key>stringUtil</key>
+	    <scope>application</scope>
+	    <class>com.zdf.tools.StringTool</class>
+	</tool> -->
+</toolbox>

@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>数据更新</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="数据更新" />
+    <style type="text/css">
+    .banner img {
+        margin: 0 0 5px 0;
+    }
+    </style>
+    <style type="text/css">
+    img.wp-smiley,
+    img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 .07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+    }
+    </style>
+    <link rel="stylesheet" href="http://www.5ikmj.com/static/style.css?v=16546088" type="text/css" />
+    <link rel="stylesheet" href="http://www.5ikmj.com/static/styles/4-blue.css?v=16546088" type="text/css" />
+    <link rel="stylesheet" href="http://www.5ikmj.com/static/css/home.css?v=16546088" type="text/css" />
+    <link rel="stylesheet" href="http://www.5ikmj.com/static/css/css.css?v=16546088" type="text/css" />
+    <link rel="stylesheet" href="http://www.5ikmj.com/static/css/new_css.css?v=16546088" type="text/css" />
+    <script type="text/javascript" src="http://www.5ikmj.com/static/js/jquery.min.js?v=16546088"></script>
+    <script type="text/javascript" src="http://www.5ikmj.com/static/js/jquery.cycle.all.min.js?v=16546088"></script>
+    <script type="text/javascript" src="http://www.5ikmj.com/static/js/custom.js?v=16546088"></script>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="" />
+    <link rel="shortcut icon" href="http://www.5ikmj.com/static/images/favicon.ico" />
+</head>
+
+
+<body class="page page-id-1729 page-template-default">
+    <style>
+    A.applink:hover {
+        border: 2px dotted #DCE6F4;
+        padding: 2px;
+        background-color: #ffff00;
+        color: green;
+        text-decoration: none
+    }
+    
+    A.applink {
+        border: 2px dotted #DCE6F4;
+        padding: 2px;
+        color: #2F5BFF;
+        background: transparent;
+        text-decoration: none
+    }
+    
+    A.info {
+        color: #2F5BFF;
+        background: transparent;
+        text-decoration: none
+    }
+    
+    A.info:hover {
+        color: green;
+        background: transparent;
+        text-decoration: underline
+    }
+    </style>
+    <div id="wrapper">
+        <div id="header">
+            <div class="header_c">
+                <div class="logo_box">
+                    <a href="http://www.5ikmj.com/index" title="我爱看美剧">
+                        <h1 class="logo">
+                    我爱看美剧
+                </h1>
+                    </a>
+                </div>
+                <div class="time">
+                    <script type="text/javascript">
+                    today = new Date();
+                    var day;
+                    var date;
+                    var hello;
+                    hour = new Date().getHours();
+                    if (hour < 6) hello = '  凌晨好! '
+                    else if (hour < 9) hello = ' 早上好! '
+                    else if (hour < 12) hello = ' 上午好! '
+                    else if (hour < 14) hello = ' 中午好! '
+                    else if (hour < 17) hello = ' 下午好! '
+                    else if (hour < 19) hello = ' 傍晚好! '
+                    else if (hour < 22) hello = ' 晚上好! '
+                    else {
+                        hello = '夜深了! '
+                    }
+                    var webUrl = webUrl;
+                    document.write(' ' + hello);
+                    </script>
+                    <span id=localtime>
+                <script type="text/javascript">
+                    today = new Date();
+                    var tdate, tday, x, year;
+                    var x = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+                    var MSIE = navigator.userAgent.indexOf("MSIE");
+                    if (MSIE != -1) year = (today.getFullYear());
+                    else year = (today.getYear() + 1900);
+                    tdate = year + "年" + (today.getMonth() + 1) + "月" + today.getDate() + "日" + " " + x[today.getDay()];
+                    document.write(tdate);
+                </script>
+            </span>
+                    <br>
+                    <span>
+                <H2>扫二维码进入><a href="http://m.5ikmj.com">手机站</a><H2>
+                <a href="http://www.5ikmj.com/saveDesktop" style="color: orangered;">保存到桌面</a> |
+                <a href="#" class="fav" style="color: orangered;">加入收藏</a>
+                <img id="erweima" src="http://www.5ikmj.com/static/images/erwei.png" style="width: 40px;height: 40px;float: right;bottom:20px;position:relative; "></img>
+            </span>
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            <!-- end: header_c -->
+        </div>
+        <div id="erweima_big" style="display:none;position:absolute;right:218px;top:10px; z-index:1111;">
+            <img id="erweima-big" src="http://www.5ikmj.com/static/images/erwei.png"></img>
+        </div>
+        <!-- end: header -->
+        <div id="top">
+            <div id='topnav'>
+                <div class="left_top ">
+                    <div class="home_h">
+                        <a href="http://www.5ikmj.com/index" title="首  页" class="home_h">
+                        </a>
+                    </div>
+                    <div class="menu-ok-container">
+                        <ul id="menu-ok" class="menu">
+                            <li id="p_menu-item-0" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-29">
+                                <a href="http://www.5ikmj.com/meiju">
+                                天天美剧
+                        </a>
+                                <ul class="sub-menu">
+                                    <li id="menu-item-1" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30">
+                                        <a href="http://www.5ikmj.com/meiju/1">
+                                        动作分类
+                                </a>
+                                    </li>
+                                    <li id="menu-item-2" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31">
+                                        <a href="http://www.5ikmj.com/meiju/2">
+                                        灵异惊悚
+                                </a>
+                                    </li>
+                                    <li id="menu-item-3" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32">
+                                        <a href="http://www.5ikmj.com/meiju/3">
+                                        科幻魔幻
+                                </a>
+                                    </li>
+                                    <li id="menu-item-4" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33">
+                                        <a href="http://www.5ikmj.com/meiju/4">
+                                        罪案谍战
+                                </a>
+                                    </li>
+                                    <li id="menu-item-5" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-34">
+                                        <a href="http://www.5ikmj.com/meiju/5">
+                                        情景喜剧
+                                </a>
+                                    </li>
+                                    <li id="menu-item-6" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2072">
+                                        <a href="http://www.5ikmj.com/meiju/6">
+                                        律政医务剧情
+                                </a>
+                                    </li>
+                                    <li id="menu-item-7" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1603">
+                                        <a href="http://www.5ikmj.com/meiju/7">
+                                        真人秀
+                                </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="menu-item-hanju" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30">
+                                <a href="http://www.5ikmj.com/hanju">
+                                热播韩剧
+                        </a>
+                            </li>
+                            <li id="menu-item-guoju" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31">
+                                <a href="http://www.5ikmj.com/guoju">
+                                国剧推荐
+                        </a>
+                            </li>
+                            <li id="menu-item-dianying" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32">
+                                <a href="http://www.5ikmj.com/dianying">
+                                电影天堂
+                        </a>
+                            </li>
+                            <li id="menu-item-donghua" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33">
+                                <a href="http://www.5ikmj.com/donghua">
+                                动漫动画
+                        </a>
+                            </li>
+                            <li id="menu-item-5" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-34">
+                                <a href="http://www.5ikmj.com/news/renewView">
+                                美剧资讯
+                        </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end: left_top -->
+                <div id="searchbar">
+                    <form method="post" id="searchform" action="http://www.5ikmj.com/query/title">
+                        <input type="text" name="stitle" id="s" class="swap_value" value="">
+                        <input type="image" src="http://www.5ikmj.com/static/images/go.gif" id="go" alt="Search" title="搜索">
+                    </form>
+                </div>
+                <!-- end: searchbar -->
+            </div>
+            <!-- end: topnav -->
+        </div>
+        <!-- end: top -->
+        </br>
+        <!-- scroll -->
+        <ul class="scroll">
+            <li class="sct">
+                <a href="#">
+            &nbsp;&nbsp;&nbsp;
+        </a>
+                <div>
+                    <a class="scroll_t">
+                返回顶部
+            </a>
+                </div>
+            </li>
+            <li style="color: orangered;">
+                <a href="http://www.5ikmj.com/saveDesktop" class="scroll_t" style="background: #4A82C0;">保存到桌面</a>
+            </li>
+            <li style="color: orangered;">
+                <a href="javascript:;" class="fav scroll_t" style="background: orangered;">加入收藏夹</a>
+            </li>
+            <li class="scb">
+                <a href="#">
+            &nbsp;&nbsp;&nbsp;
+        </a>
+                <div>
+                    <a class="scroll_b">
+                转到底部
+            </a>
+                </div>
+            </li>
+        </ul>
+        <!-- end: scroll -->
+        <!-- ad1 -->
+        <!-- end: ad1 -->
+        <div id="content">
+            <!-- menu -->
+            <div id="map">
+                <div class="browse">
+                    现在的位置:
+                    <a title="返回首页" href="http://www.5ikmj.com/index">
+                        首页
+                    </a> &gt;
+                    <a href="#" rel="category tag">
+                        资讯
+                    </a> &gt; 正文
+                </div>
+                <div id="feed">
+                </div>
+            </div>
+            <!-- end: menu -->
+            <div class="entry_box_s">
+                <div class="context">
+                </div>
+                <div class="entry_title_box">
+                    <!-- 分类图标 -->
+                    <div class="ico">
+                    </div>
+                    <!-- end: 分类图标 -->
+                    <h2 class="entry_title">资源更新</h2>
+                    <div class="archive_info">
+                        <span class="edit">
+                        </span>
+                    </div>
+                </div>
+                <!-- end: entry_title_box -->
+                <div class="entry">
+                    <div id="entry">
+                        <div class="ad_r">
+                        </div>
+                        <ul>
+                            <li>
+                                <span style="color: #ff6600;" class="entry_title">美剧</span> 
+								<a href="spider/meijuLinks" target="_blank">下载连接更新</a>
+                            </li>
+                            <li>
+                                <span style="color: #ff6600;" class="entry_title">美剧</span> 
+								<a href="spider/meijuVideo2" target="_blank">视频更新 m77</a>
+                            </li>
+                            <li>
+                                <span style="color: #ff6600;" class="entry_title">美剧</span> 
+								<a href="spider/meijuVideo1" target="_blank">视频更新 m77_new</a>
+                            </li>
+                            <li>
+                                <span style="color: #ff6600;" class="entry_title">美剧</span> 
+								<a href="spider/meijuVideo3" target="_blank">视频更新 meijuh</a>
+                            </li>
+                            <li>
+                                <span style="color: #ff6600;" class="entry_title">美剧</span> 
+								<a href="spider/newk" target="_blank">视频更新 newk</a>
+                            </li>
+                            <li>
+                                <span style="color: gray;" class="entry_title">动画</span> 
+								<a href="spider/donghua" target="_blank">视频更新</a>
+                            </li>
+                            <li>
+                                <span style="color: orange;" class="entry_title">国剧</span>
+								<a href="spider/guoju" target="_blank">视频更新</a>
+                            </li>
+                            <li>
+                                <span style="color: blue;" class="entry_title">韩剧</span>
+								<a href="spider/hanju" target="_blank">视频更新</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+                <!-- end: entry -->
+                <i class="lt">
+                </i>
+                <i class="rt">
+                </i>
+            </div>
+            <div class="entry_sb">
+                <i class="lb">
+                </i>
+                <i class="rb">
+                </i>
+            </div>
+            <!-- ad -->
+        </div>
+        <!-- end: content -->
+        <!-- end: content ---------------------------------------------------------------------------------------- -->
+        <div class="clear"></div>
+    </div>
+</body>
+
+</html>

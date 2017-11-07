@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 
+	<import resource="classpath*:applicationContext-quartz.xml" />
+	<import resource="applicationContext-dao.xml"/>
+	<context:component-scan base-package="com.zdf.dao.car" >
+	</context:component-scan>
+	<context:annotation-config />  
+	  --> 
+	<import resource="applicationContext-mvc.xml" />  
+	  
+	<!-- <aop:aspectj-autoproxy /> -->
+  
+    <!-- transaction manager, use JtaTransactionManager for global tx -->  
+    <bean id="txManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>  
+  
+    <context:component-scan base-package="com.zdf" />  
+  
+    <!-- enable autowire -->  
+    <context:annotation-config />  
+  
+    <!-- enable transaction demarcation with annotations -->  
+    <!-- <tx:annotation-driven transaction-manager="txManager" />  -->
+    
+    <bean id="jdbcTemplate"  
+        class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>
+    
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+        	<list>
+        		<value>classpath:datasource.properties</value>
+        	</list>
+        </property>
+    </bean>
+	
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="maxActive" value="3" />
+		<property name="maxIdle" value="1" />
+		<property name="maxWait" value="20000" />
+		<property name="defaultAutoCommit" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="60" />
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="rollbackOnCommitFailure" value="true" />
+		<property name="globalRollbackOnParticipationFailure" value="true" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" />
+			<tx:method name="*" rollback-for="Exception"/>  
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+     	<aop:pointcut id="dyOperation" expression="execution(* com.zdf..*ServiceImpl.*(..))" />  
+     	<aop:advisor pointcut-ref="dyOperation" advice-ref="txAdvice" />
+	</aop:config>
+	
+</beans>
