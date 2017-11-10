@@ -13,7 +13,7 @@ import com.zdf.bean.mj.MjDirectoryVideo;
 import com.zdf.service.mj.MjDirectoryVideoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext.xml")
+@ContextConfiguration("classpath:spring/applicationContext.xml")
 public class MjDirectoryVideoServiceTest {
 	@Autowired
 	private MjDirectoryVideoService service;

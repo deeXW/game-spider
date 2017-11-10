@@ -10,7 +10,7 @@ import com.zdf.util.MjWebsiteConstant;
 import com.zdf.webspider.processor.gj.GjHandlerProcessor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext.xml")
+@ContextConfiguration("classpath:spring/applicationContext.xml")
 public class GjHandlerProcessorTest {
 	@Autowired
 	private GjHandlerProcessor gjHandlerProcessor;

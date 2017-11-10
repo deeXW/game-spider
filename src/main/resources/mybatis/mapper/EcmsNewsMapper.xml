@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.zdf.dao.dfwd.EcmsNewsDao">
+	<resultMap id="BaseResultMap" type="com.zdf.entity.EcmsNewsEntity">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="classid" column="classid" jdbcType="SMALLINT" />
+		<result property="ttid" column="ttid" jdbcType="SMALLINT" />
+		<result property="onclick" column="onclick" jdbcType="INTEGER" />
+		<result property="plnum" column="plnum" jdbcType="INTEGER" />
+		<result property="totaldown" column="totaldown" jdbcType="INTEGER" />
+		<result property="newspath" column="newspath" jdbcType="CHAR" />
+		<result property="filename" column="filename" jdbcType="CHAR" />
+		<result property="userid" column="userid" jdbcType="INTEGER" />
+		<result property="username" column="username" jdbcType="CHAR" />
+		<result property="firsttitle" column="firsttitle" jdbcType="BIT" />
+		<result property="isgood" column="isgood" jdbcType="BIT" />
+		<result property="ispic" column="ispic" jdbcType="BIT" />
+		<result property="istop" column="istop" jdbcType="BIT" />
+		<result property="isqf" column="isqf" jdbcType="BIT" />
+		<result property="ismember" column="ismember" jdbcType="BIT" />
+		<result property="isurl" column="isurl" jdbcType="BIT" />
+		<result property="truetime" column="truetime" jdbcType="INTEGER" />
+		<result property="lastdotime" column="lastdotime" jdbcType="INTEGER" />
+		<result property="havehtml" column="havehtml" jdbcType="BIT" />
+		<result property="groupid" column="groupid" jdbcType="SMALLINT" />
+		<result property="userfen" column="userfen" jdbcType="SMALLINT" />
+		<result property="titlefont" column="titlefont" jdbcType="CHAR" />
+		<result property="titleurl" column="titleurl" jdbcType="CHAR" />
+		<result property="stb" column="stb" jdbcType="TINYINT" />
+		<result property="fstb" column="fstb" jdbcType="TINYINT" />
+		<result property="restb" column="restb" jdbcType="TINYINT" />
+		<result property="keyboard" column="keyboard" jdbcType="CHAR" />
+		<result property="title" column="title" jdbcType="CHAR" />
+		<result property="newstime" column="newstime" jdbcType="INTEGER" />
+		<result property="titlepic" column="titlepic" jdbcType="CHAR" />
+		<result property="ftitle" column="ftitle" jdbcType="CHAR" />
+		<result property="smalltext" column="smalltext" jdbcType="CHAR" />
+		<result property="diggtop" column="diggtop" jdbcType="INTEGER" />
+		<result property="fmimg" column="fmimg" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,
+		classid,
+		ttid,
+		onclick,
+		plnum,
+		totaldown,
+		newspath,
+		filename,
+		userid,
+		username,
+		firsttitle,
+		isgood,
+		ispic,
+		istop,
+		isqf,
+		ismember,
+		isurl,
+		truetime,
+		lastdotime,
+		havehtml,
+		groupid,
+		userfen,
+		titlefont,
+		titleurl,
+		stb,
+		fstb,
+		restb,
+		keyboard,
+		title,
+		newstime,
+		titlepic,
+		ftitle,
+		smalltext,
+		diggtop,
+		fmimg
+        ]]>
+    </sql>
+
+
+    <!--根据主键ID查询记录-->
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT <include refid="Base_Column_List" />
+        <![CDATA[
+        FROM www_96kaifa_com_ecms_news
+        WHERE
+		id = #{id} 
+        ]]>
+    </select>
+
+    <!--更新-->
+    <update id="update" parameterType="com.cheguo.insurance.model.order.EcmsNewsDO" >
+        update www_96kaifa_com_ecms_news
+        <set>
+            <if test="null != classid" >
+                <![CDATA[ classid = #{classid} , ]]>
+			</if>
+            <if test="null != ttid" >
+                <![CDATA[ ttid = #{ttid} , ]]>
+			</if>
+            <if test="null != onclick" >
+                <![CDATA[ onclick = #{onclick} , ]]>
+			</if>
+            <if test="null != plnum" >
+                <![CDATA[ plnum = #{plnum} , ]]>
+			</if>
+            <if test="null != totaldown" >
+                <![CDATA[ totaldown = #{totaldown} , ]]>
+			</if>
+            <if test="null != newspath" >
+                <![CDATA[ newspath = #{newspath} , ]]>
+			</if>
+            <if test="null != filename" >
+                <![CDATA[ filename = #{filename} , ]]>
+			</if>
+            <if test="null != userid" >
+                <![CDATA[ userid = #{userid} , ]]>
+			</if>
+            <if test="null != username" >
+                <![CDATA[ username = #{username} , ]]>
+			</if>
+            <if test="null != firsttitle" >
+                <![CDATA[ firsttitle = #{firsttitle} , ]]>
+			</if>
+            <if test="null != isgood" >
+                <![CDATA[ isgood = #{isgood} , ]]>
+			</if>
+            <if test="null != ispic" >
+                <![CDATA[ ispic = #{ispic} , ]]>
+			</if>
+            <if test="null != istop" >
+                <![CDATA[ istop = #{istop} , ]]>
+			</if>
+            <if test="null != isqf" >
+                <![CDATA[ isqf = #{isqf} , ]]>
+			</if>
+            <if test="null != ismember" >
+                <![CDATA[ ismember = #{ismember} , ]]>
+			</if>
+            <if test="null != isurl" >
+                <![CDATA[ isurl = #{isurl} , ]]>
+			</if>
+            <if test="null != truetime" >
+                <![CDATA[ truetime = #{truetime} , ]]>
+			</if>
+            <if test="null != lastdotime" >
+                <![CDATA[ lastdotime = #{lastdotime} , ]]>
+			</if>
+            <if test="null != havehtml" >
+                <![CDATA[ havehtml = #{havehtml} , ]]>
+			</if>
+            <if test="null != groupid" >
+                <![CDATA[ groupid = #{groupid} , ]]>
+			</if>
+            <if test="null != userfen" >
+                <![CDATA[ userfen = #{userfen} , ]]>
+			</if>
+            <if test="null != titlefont" >
+                <![CDATA[ titlefont = #{titlefont} , ]]>
+			</if>
+            <if test="null != titleurl" >
+                <![CDATA[ titleurl = #{titleurl} , ]]>
+			</if>
+            <if test="null != stb" >
+                <![CDATA[ stb = #{stb} , ]]>
+			</if>
+            <if test="null != fstb" >
+                <![CDATA[ fstb = #{fstb} , ]]>
+			</if>
+            <if test="null != restb" >
+                <![CDATA[ restb = #{restb} , ]]>
+			</if>
+            <if test="null != keyboard" >
+                <![CDATA[ keyboard = #{keyboard} , ]]>
+			</if>
+            <if test="null != title" >
+                <![CDATA[ title = #{title} , ]]>
+			</if>
+            <if test="null != newstime" >
+                <![CDATA[ newstime = #{newstime} , ]]>
+			</if>
+            <if test="null != titlepic" >
+                <![CDATA[ titlepic = #{titlepic} , ]]>
+			</if>
+            <if test="null != ftitle" >
+                <![CDATA[ ftitle = #{ftitle} , ]]>
+			</if>
+            <if test="null != smalltext" >
+                <![CDATA[ smalltext = #{smalltext} , ]]>
+			</if>
+            <if test="null != diggtop" >
+                <![CDATA[ diggtop = #{diggtop} , ]]>
+			</if>
+            <if test="null != fmimg" >
+                <![CDATA[ fmimg = #{fmimg}  ]]>
+			</if>
+		</set>
+        <![CDATA[
+        WHERE
+		id = #{id ,jdbcType=INTEGER} 
+        ]]>
+    </update>
+
+
+    <delete id="delById" parameterType="java.lang.Integer" >
+        <![CDATA[
+        DELETE FROM www_96kaifa_com_ecms_news WHERE
+		id = #{id} 
+        ]]>
+    </delete>
+
+    <!--新增 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.cheguo.insurance.model.order.EcmsNewsDO">
+        INSERT INTO www_96kaifa_com_ecms_news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != classid" >
+			    classid,
+            </if>
+            <if test="null != ttid" >
+			    ttid,
+            </if>
+            <if test="null != onclick" >
+			    onclick,
+            </if>
+            <if test="null != plnum" >
+			    plnum,
+            </if>
+            <if test="null != totaldown" >
+			    totaldown,
+            </if>
+            <if test="null != newspath" >
+			    newspath,
+            </if>
+            <if test="null != filename" >
+			    filename,
+            </if>
+            <if test="null != userid" >
+			    userid,
+            </if>
+            <if test="null != username" >
+			    username,
+            </if>
+            <if test="null != firsttitle" >
+			    firsttitle,
+            </if>
+            <if test="null != isgood" >
+			    isgood,
+            </if>
+            <if test="null != ispic" >
+			    ispic,
+            </if>
+            <if test="null != istop" >
+			    istop,
+            </if>
+            <if test="null != isqf" >
+			    isqf,
+            </if>
+            <if test="null != ismember" >
+			    ismember,
+            </if>
+            <if test="null != isurl" >
+			    isurl,
+            </if>
+            <if test="null != truetime" >
+			    truetime,
+            </if>
+            <if test="null != lastdotime" >
+			    lastdotime,
+            </if>
+            <if test="null != havehtml" >
+			    havehtml,
+            </if>
+            <if test="null != groupid" >
+			    groupid,
+            </if>
+            <if test="null != userfen" >
+			    userfen,
+            </if>
+            <if test="null != titlefont" >
+			    titlefont,
+            </if>
+            <if test="null != titleurl" >
+			    titleurl,
+            </if>
+            <if test="null != stb" >
+			    stb,
+            </if>
+            <if test="null != fstb" >
+			    fstb,
+            </if>
+            <if test="null != restb" >
+			    restb,
+            </if>
+            <if test="null != keyboard" >
+			    keyboard,
+            </if>
+            <if test="null != title" >
+			    title,
+            </if>
+            <if test="null != newstime" >
+			    newstime,
+            </if>
+            <if test="null != titlepic" >
+			    titlepic,
+            </if>
+            <if test="null != ftitle" >
+			    ftitle,
+            </if>
+            <if test="null != smalltext" >
+			    smalltext,
+            </if>
+            <if test="null != diggtop" >
+			    diggtop,
+            </if>
+            <if test="null != fmimg" >
+			    fmimg
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != classid" >
+                #{classid ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != ttid" >
+                #{ttid ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != onclick" >
+                #{onclick ,jdbcType=INTEGER},
+            </if>
+            <if test="null != plnum" >
+                #{plnum ,jdbcType=INTEGER},
+            </if>
+            <if test="null != totaldown" >
+                #{totaldown ,jdbcType=INTEGER},
+            </if>
+            <if test="null != newspath" >
+                #{newspath ,jdbcType=CHAR},
+            </if>
+            <if test="null != filename" >
+                #{filename ,jdbcType=CHAR},
+            </if>
+            <if test="null != userid" >
+                #{userid ,jdbcType=INTEGER},
+            </if>
+            <if test="null != username" >
+                #{username ,jdbcType=CHAR},
+            </if>
+            <if test="null != firsttitle" >
+                #{firsttitle ,jdbcType=BIT},
+            </if>
+            <if test="null != isgood" >
+                #{isgood ,jdbcType=BIT},
+            </if>
+            <if test="null != ispic" >
+                #{ispic ,jdbcType=BIT},
+            </if>
+            <if test="null != istop" >
+                #{istop ,jdbcType=BIT},
+            </if>
+            <if test="null != isqf" >
+                #{isqf ,jdbcType=BIT},
+            </if>
+            <if test="null != ismember" >
+                #{ismember ,jdbcType=BIT},
+            </if>
+            <if test="null != isurl" >
+                #{isurl ,jdbcType=BIT},
+            </if>
+            <if test="null != truetime" >
+                #{truetime ,jdbcType=INTEGER},
+            </if>
+            <if test="null != lastdotime" >
+                #{lastdotime ,jdbcType=INTEGER},
+            </if>
+            <if test="null != havehtml" >
+                #{havehtml ,jdbcType=BIT},
+            </if>
+            <if test="null != groupid" >
+                #{groupid ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != userfen" >
+                #{userfen ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != titlefont" >
+                #{titlefont ,jdbcType=CHAR},
+            </if>
+            <if test="null != titleurl" >
+                #{titleurl ,jdbcType=CHAR},
+            </if>
+            <if test="null != stb" >
+                #{stb ,jdbcType=TINYINT},
+            </if>
+            <if test="null != fstb" >
+                #{fstb ,jdbcType=TINYINT},
+            </if>
+            <if test="null != restb" >
+                #{restb ,jdbcType=TINYINT},
+            </if>
+            <if test="null != keyboard" >
+                #{keyboard ,jdbcType=CHAR},
+            </if>
+            <if test="null != title" >
+                #{title ,jdbcType=CHAR},
+            </if>
+            <if test="null != newstime" >
+                #{newstime ,jdbcType=INTEGER},
+            </if>
+            <if test="null != titlepic" >
+                #{titlepic ,jdbcType=CHAR},
+            </if>
+            <if test="null != ftitle" >
+                #{ftitle ,jdbcType=CHAR},
+            </if>
+            <if test="null != smalltext" >
+                #{smalltext ,jdbcType=CHAR},
+            </if>
+            <if test="null != diggtop" >
+                #{diggtop ,jdbcType=INTEGER},
+            </if>
+            <if test="null != fmimg" >
+                #{fmimg ,jdbcType=LONGVARCHAR}
+            </if>
+        </trim>
+
+    </insert>
+
+    <!--查询数据列表-->
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.cheguo.insurance.dto.order.QueryEcmsNewsDTO">
+        SELECT <include refid="Base_Column_List" />
+        FROM www_96kaifa_com_ecms_news
+        <where>
+        <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
+            <if test="null != classid" >
+                <![CDATA[ AND classid = #{classid ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != ttid" >
+                <![CDATA[ AND ttid = #{ttid ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != onclick" >
+                <![CDATA[ AND onclick = #{onclick ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != plnum" >
+                <![CDATA[ AND plnum = #{plnum ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != totaldown" >
+                <![CDATA[ AND totaldown = #{totaldown ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != newspath" >
+                <![CDATA[ AND newspath = #{newspath ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != filename" >
+                <![CDATA[ AND filename = #{filename ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != userid" >
+                <![CDATA[ AND userid = #{userid ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != username" >
+                <![CDATA[ AND username = #{username ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != firsttitle" >
+                <![CDATA[ AND firsttitle = #{firsttitle ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != isgood" >
+                <![CDATA[ AND isgood = #{isgood ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != ispic" >
+                <![CDATA[ AND ispic = #{ispic ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != istop" >
+                <![CDATA[ AND istop = #{istop ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != isqf" >
+                <![CDATA[ AND isqf = #{isqf ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != ismember" >
+                <![CDATA[ AND ismember = #{ismember ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != isurl" >
+                <![CDATA[ AND isurl = #{isurl ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != truetime" >
+                <![CDATA[ AND truetime = #{truetime ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != lastdotime" >
+                <![CDATA[ AND lastdotime = #{lastdotime ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != havehtml" >
+                <![CDATA[ AND havehtml = #{havehtml ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != groupid" >
+                <![CDATA[ AND groupid = #{groupid ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != userfen" >
+                <![CDATA[ AND userfen = #{userfen ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != titlefont" >
+                <![CDATA[ AND titlefont = #{titlefont ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != titleurl" >
+                <![CDATA[ AND titleurl = #{titleurl ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != stb" >
+                <![CDATA[ AND stb = #{stb ,jdbcType=TINYINT} ]]>
+            </if>
+            <if test="null != fstb" >
+                <![CDATA[ AND fstb = #{fstb ,jdbcType=TINYINT} ]]>
+            </if>
+            <if test="null != restb" >
+                <![CDATA[ AND restb = #{restb ,jdbcType=TINYINT} ]]>
+            </if>
+            <if test="null != keyboard" >
+                <![CDATA[ AND keyboard = #{keyboard ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != title" >
+                <![CDATA[ AND title = #{title ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != newstime" >
+                <![CDATA[ AND newstime = #{newstime ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != titlepic" >
+                <![CDATA[ AND titlepic = #{titlepic ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != ftitle" >
+                <![CDATA[ AND ftitle = #{ftitle ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != smalltext" >
+                <![CDATA[ AND smalltext = #{smalltext ,jdbcType=CHAR} ]]>
+            </if>
+            <if test="null != diggtop" >
+                <![CDATA[ AND diggtop = #{diggtop ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != fmimg" >
+                <![CDATA[ AND fmimg = #{fmimg ,jdbcType=LONGVARCHAR} ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- ========================自定义mapper======================== -->
+
+</mapper>
+

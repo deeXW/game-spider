@@ -10,7 +10,7 @@ import com.zdf.bean.mj.MeijuUpdateNotice;
 import com.zdf.service.mj.MeijuUpdateNoticeService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext.xml")
+@ContextConfiguration("classpath:spring/applicationContext.xml")
 public class MeijuUpdateNoticeServiceTest {
 	@Autowired
 	private MeijuUpdateNoticeService service;

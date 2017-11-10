@@ -52,7 +52,7 @@ public class JavaMail {
      */
     public JavaMail(boolean debug) {
         InputStream in = JavaMail.class.getClassLoader().getResourceAsStream(
-                "mail.properties");
+                "conf/mail.properties");
         try {
             properties.load(in);
             this.mailHost = properties.getProperty("mail.smtp.host");
@@ -68,7 +68,7 @@ public class JavaMail {
     }
 
     public JavaMail() {
-        InputStream in = JavaMail.class.getClassLoader().getResourceAsStream("mail.properties");
+        InputStream in = JavaMail.class.getClassLoader().getResourceAsStream("conf/mail.properties");
         try {
             properties.load(in);
             this.mailHost = properties.getProperty("mail.smtp.host");

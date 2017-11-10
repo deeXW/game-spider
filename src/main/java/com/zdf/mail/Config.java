@@ -16,7 +16,7 @@ public class Config {
         static {
             try {
                 InputStream in = Config.class.getClassLoader().getResourceAsStream(
-                    "mail.properties");
+                        "conf/mail.properties");
                 Properties properties = new Properties();
                 properties.load(in);
                 for (Object key : properties.keySet()) {
