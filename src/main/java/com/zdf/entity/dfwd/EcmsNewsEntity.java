@@ -1,7 +1,6 @@
-package com.zdf.entity;
+package com.zdf.entity.dfwd;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
 *
@@ -433,4 +432,44 @@ public class EcmsNewsEntity implements Serializable {
 		this.fmimg = fmimg;
 	}
 
+	@Override
+	public String toString() {
+		return "EcmsNewsEntity{" +
+				"id=" + id +
+				", classid=" + classid +
+				", ttid=" + ttid +
+				", onclick=" + onclick +
+				", plnum=" + plnum +
+				", totaldown=" + totaldown +
+				", newspath='" + newspath + '\'' +
+				", filename='" + filename + '\'' +
+				", userid=" + userid +
+				", username='" + username + '\'' +
+				", firsttitle=" + firsttitle +
+				", isgood=" + isgood +
+				", ispic=" + ispic +
+				", istop=" + istop +
+				", isqf=" + isqf +
+				", ismember=" + ismember +
+				", isurl=" + isurl +
+				", truetime=" + truetime +
+				", lastdotime=" + lastdotime +
+				", havehtml=" + havehtml +
+				", groupid=" + groupid +
+				", userfen=" + userfen +
+				", titlefont='" + titlefont + '\'' +
+				", titleurl='" + titleurl + '\'' +
+				", stb=" + stb +
+				", fstb=" + fstb +
+				", restb=" + restb +
+				", keyboard='" + keyboard + '\'' +
+				", title='" + title + '\'' +
+				", newstime=" + newstime +
+				", titlepic='" + titlepic + '\'' +
+				", ftitle='" + ftitle + '\'' +
+				", smalltext='" + smalltext + '\'' +
+				", diggtop=" + diggtop +
+				", fmimg='" + fmimg + '\'' +
+				'}';
+	}
 }

@@ -1,6 +1,6 @@
-package com.zdf.dto;
+package com.zdf.dto.dfwd;
 
-import com.zdf.dto.base.AbstractPageParamDTO;
+import com.zdf.dto.base.AbstractPageParamDto;
 
 /**
  * 
@@ -9,7 +9,7 @@ import com.zdf.dto.base.AbstractPageParamDTO;
  * @author: zhongdifeng
  *
  */
-public class QueryEcmsNewsDTO extends AbstractPageParamDTO {
+public class QueryEcmsNewsDto extends AbstractPageParamDto {
 
 
     /**

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zdf.dao.dfwd.EcmsNewsData1Dao">
+	<resultMap id="BaseResultMap" type="com.zdf.entity.dfwd.EcmsNewsData1Entity">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="classid" column="classid" jdbcType="SMALLINT" />
+		<result property="keyid" column="keyid" jdbcType="VARCHAR" />
+		<result property="dokey" column="dokey" jdbcType="BIT" />
+		<result property="newstempid" column="newstempid" jdbcType="SMALLINT" />
+		<result property="closepl" column="closepl" jdbcType="BIT" />
+		<result property="haveaddfen" column="haveaddfen" jdbcType="BIT" />
+		<result property="infotags" column="infotags" jdbcType="VARCHAR" />
+		<result property="writer" column="writer" jdbcType="VARCHAR" />
+		<result property="befrom" column="befrom" jdbcType="VARCHAR" />
+		<result property="newstext" column="newstext" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,
+		classid,
+		keyid,
+		dokey,
+		newstempid,
+		closepl,
+		haveaddfen,
+		infotags,
+		writer,
+		befrom,
+		newstext
+        ]]>
+    </sql>
+
+
+    <!--根据主键ID查询记录-->
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT <include refid="Base_Column_List" />
+        <![CDATA[
+        FROM www_96kaifa_com_ecms_news_data_1
+        WHERE
+		id = #{id} 
+        ]]>
+    </select>
+
+    <!--更新-->
+    <update id="update" parameterType="com.zdf.entity.dfwd.EcmsNewsData1Entity" >
+        update www_96kaifa_com_ecms_news_data_1
+        <set>
+            <if test="null != classid" >
+                <![CDATA[ classid = #{classid} , ]]>
+			</if>
+            <if test="null != keyid" >
+                <![CDATA[ keyid = #{keyid} , ]]>
+			</if>
+            <if test="null != dokey" >
+                <![CDATA[ dokey = #{dokey} , ]]>
+			</if>
+            <if test="null != newstempid" >
+                <![CDATA[ newstempid = #{newstempid} , ]]>
+			</if>
+            <if test="null != closepl" >
+                <![CDATA[ closepl = #{closepl} , ]]>
+			</if>
+            <if test="null != haveaddfen" >
+                <![CDATA[ haveaddfen = #{haveaddfen} , ]]>
+			</if>
+            <if test="null != infotags" >
+                <![CDATA[ infotags = #{infotags} , ]]>
+			</if>
+            <if test="null != writer" >
+                <![CDATA[ writer = #{writer} , ]]>
+			</if>
+            <if test="null != befrom" >
+                <![CDATA[ befrom = #{befrom} , ]]>
+			</if>
+            <if test="null != newstext" >
+                <![CDATA[ newstext = #{newstext}  ]]>
+			</if>
+		</set>
+        <![CDATA[
+        WHERE
+		id = #{id ,jdbcType=INTEGER} 
+        ]]>
+    </update>
+
+
+    <delete id="delById" parameterType="java.lang.Integer" >
+        <![CDATA[
+        DELETE FROM www_96kaifa_com_ecms_news_data_1 WHERE
+		id = #{id} 
+        ]]>
+    </delete>
+
+    <!--新增 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.zdf.entity.dfwd.EcmsNewsData1Entity">
+        INSERT INTO www_96kaifa_com_ecms_news_data_1
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != classid" >
+			    classid,
+            </if>
+            <if test="null != keyid" >
+			    keyid,
+            </if>
+            <if test="null != dokey" >
+			    dokey,
+            </if>
+            <if test="null != newstempid" >
+			    newstempid,
+            </if>
+            <if test="null != closepl" >
+			    closepl,
+            </if>
+            <if test="null != haveaddfen" >
+			    haveaddfen,
+            </if>
+            <if test="null != infotags" >
+			    infotags,
+            </if>
+            <if test="null != writer" >
+			    writer,
+            </if>
+            <if test="null != befrom" >
+			    befrom,
+            </if>
+            <if test="null != newstext" >
+			    newstext
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != classid" >
+                #{classid ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != keyid" >
+                #{keyid ,jdbcType=VARCHAR},
+            </if>
+            <if test="null != dokey" >
+                #{dokey ,jdbcType=BIT},
+            </if>
+            <if test="null != newstempid" >
+                #{newstempid ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != closepl" >
+                #{closepl ,jdbcType=BIT},
+            </if>
+            <if test="null != haveaddfen" >
+                #{haveaddfen ,jdbcType=BIT},
+            </if>
+            <if test="null != infotags" >
+                #{infotags ,jdbcType=VARCHAR},
+            </if>
+            <if test="null != writer" >
+                #{writer ,jdbcType=VARCHAR},
+            </if>
+            <if test="null != befrom" >
+                #{befrom ,jdbcType=VARCHAR},
+            </if>
+            <if test="null != newstext" >
+                #{newstext ,jdbcType=LONGVARCHAR}
+            </if>
+        </trim>
+
+    </insert>
+
+    <!--查询数据列表-->
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zdf.dto.dfwd.QueryEcmsNewsData1Dto">
+        SELECT <include refid="Base_Column_List" />
+        FROM www_96kaifa_com_ecms_news_data_1
+        <where>
+        <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
+            <if test="null != classid" >
+                <![CDATA[ AND classid = #{classid ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != keyid" >
+                <![CDATA[ AND keyid = #{keyid ,jdbcType=VARCHAR} ]]>
+            </if>
+            <if test="null != dokey" >
+                <![CDATA[ AND dokey = #{dokey ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != newstempid" >
+                <![CDATA[ AND newstempid = #{newstempid ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != closepl" >
+                <![CDATA[ AND closepl = #{closepl ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != haveaddfen" >
+                <![CDATA[ AND haveaddfen = #{haveaddfen ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != infotags" >
+                <![CDATA[ AND infotags = #{infotags ,jdbcType=VARCHAR} ]]>
+            </if>
+            <if test="null != writer" >
+                <![CDATA[ AND writer = #{writer ,jdbcType=VARCHAR} ]]>
+            </if>
+            <if test="null != befrom" >
+                <![CDATA[ AND befrom = #{befrom ,jdbcType=VARCHAR} ]]>
+            </if>
+            <if test="null != newstext" >
+                <![CDATA[ AND newstext = #{newstext ,jdbcType=LONGVARCHAR} ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- ========================自定义mapper======================== -->
+
+</mapper>
+

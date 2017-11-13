@@ -3,7 +3,7 @@
 
 
 <mapper namespace="com.zdf.dao.dfwd.EcmsNewsDao">
-	<resultMap id="BaseResultMap" type="com.zdf.entity.EcmsNewsEntity">
+	<resultMap id="BaseResultMap" type="com.zdf.entity.dfwd.EcmsNewsEntity">
 		<id property="id" column="id" jdbcType="INTEGER" />
 		<result property="classid" column="classid" jdbcType="SMALLINT" />
 		<result property="ttid" column="ttid" jdbcType="SMALLINT" />
@@ -94,7 +94,7 @@
     </select>
 
     <!--更新-->
-    <update id="update" parameterType="com.cheguo.insurance.model.order.EcmsNewsDO" >
+    <update id="update" parameterType="com.zdf.entity.dfwd.EcmsNewsEntity" >
         update www_96kaifa_com_ecms_news
         <set>
             <if test="null != classid" >
@@ -215,7 +215,7 @@
     </delete>
 
     <!--新增 -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.cheguo.insurance.model.order.EcmsNewsDO">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.zdf.entity.dfwd.EcmsNewsEntity">
         INSERT INTO www_96kaifa_com_ecms_news
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="null != classid" >
@@ -429,7 +429,7 @@
     </insert>
 
     <!--查询数据列表-->
-    <select id="queryList" resultMap="BaseResultMap" parameterType="com.cheguo.insurance.dto.order.QueryEcmsNewsDTO">
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zdf.dto.dfwd.QueryEcmsNewsDto">
         SELECT <include refid="Base_Column_List" />
         FROM www_96kaifa_com_ecms_news
         <where>

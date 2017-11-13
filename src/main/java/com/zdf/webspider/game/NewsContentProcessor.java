@@ -55,7 +55,6 @@ public class NewsContentProcessor implements PageProcessor {
     public Site getSite(){
         if(site == null){
             site = Site.me().setDomain(DOMAIN)
-                    .addStartUrl(START_URL)
                     .setSleepTime(500)
                     .setUserAgent(UA);
 

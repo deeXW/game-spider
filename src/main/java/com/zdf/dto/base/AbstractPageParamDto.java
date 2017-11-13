@@ -3,7 +3,7 @@ package com.zdf.dto.base;
 /**
  * Created by zhongdifeng on 2017/9/5.
  */
-public class AbstractPageParamDTO {
+public class AbstractPageParamDto {
     /**
      * 当前页
      */
