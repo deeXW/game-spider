@@ -19,8 +19,25 @@
 			<param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%c] %m%n" />
 		</layout>
 	</appender>
-    
-    <logger name="us.codecraft.webmagic.downloader.HttpClientDownloader">
+
+	<appender name="IMG_DOWNLOAD" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="File" value="${catalina.base}/img_download.log" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
+		</layout>
+	</appender>
+
+	<!--生成订单结算定时任务日志-->
+	<logger name="img_download" additivity="false">
+		<level value="info" />
+		<appender-ref ref="IMG_DOWNLOAD" />
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+
+	<logger name="us.codecraft.webmagic.downloader.HttpClientDownloader">
 		<level value="error" />
 	</logger>
     <logger name="us.codecraft.webmagic.Spider">
@@ -29,6 +46,8 @@
     <logger name="us.codecraft.webmagic.pipeline.ConsolePipeline">
 		<level value="error" />
 	</logger>
+
+
 	<root>
 		<level value="info" />
 		<appender-ref ref="ALL" />
