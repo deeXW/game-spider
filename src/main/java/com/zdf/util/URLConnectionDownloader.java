@@ -31,13 +31,8 @@ public class URLConnectionDownloader {
     }
     /**
        * 下载文件到本地
-       *
-       * @param urlString
-       *          被下载的文件地址
-       * @param filename
-       *          本地文件名
+       * @param urlString 被下载的文件地址
        * @throws Exception
-       *           各种异常
        */
     public static void download(String urlString) {
         InputStream is = null;

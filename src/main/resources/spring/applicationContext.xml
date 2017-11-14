@@ -15,5 +15,6 @@
 	</bean>
 
 	<import resource="applicationContext-mvc.xml" />
-	
+	<import resource="applicationContext-executor.xml" />
+
 </beans>
