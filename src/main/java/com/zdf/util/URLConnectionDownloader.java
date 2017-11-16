@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 */
 public class URLConnectionDownloader {
     protected static Logger logger           = Logger.getLogger("img_download");
-    private static String downloadPath = "E:/";
+    private static String downloadPath = "E:/img/";
 
     public static void main(String[] args) throws Exception {
         String imgUrl = "http://mpic.tiankong.com/ef2/c6e/ef2c6e8ac1a39a6166fb838eaa936751/640.jpg";

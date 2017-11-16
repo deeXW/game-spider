@@ -6,18 +6,18 @@ import java.util.concurrent.ArrayBlockingQueue;
  * Created by zhongdifeng on 2017/11/15.
  */
 public class ImgUrlBlockQueen {
-    private ArrayBlockingQueue<Object> eggs = new ArrayBlockingQueue<Object>(99999);
+    private ArrayBlockingQueue<String> imgUrls = new ArrayBlockingQueue<String>(99999);
 
     /**
      * 获取蛋
      *
      * @return
      */
-    public Object getImgUrl() {
+    public String getImgUrl() {
         try {
-            Object egg = eggs.take();
-            System.out.println("消费者取蛋,当前剩余：" + eggs.size());
-            return egg;
+            String imgUrl = imgUrls.take();
+            System.out.println("当前剩余：" + imgUrls.size());
+            return imgUrl;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -28,9 +28,9 @@ public class ImgUrlBlockQueen {
     /**
      * 加入队列
      */
-    public void addImgUrl(Object egg) {
+    public void addImgUrl(String imgUrl) {
         try {
-            eggs.put(new Object());
+            imgUrls.put(imgUrl);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
