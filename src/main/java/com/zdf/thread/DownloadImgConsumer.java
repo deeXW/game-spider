@@ -15,7 +15,9 @@ public class DownloadImgConsumer implements Runnable{
 
     @Override
     public void run() {
-        String imgUrl = (String)imgUrlBlockQueen.getImgUrl();
-        URLConnectionDownloader.download(imgUrl);
+        while(true){
+            String imgUrl = (String)imgUrlBlockQueen.getImgUrl();
+            URLConnectionDownloader.download(imgUrl);
+        }
     }
 }
