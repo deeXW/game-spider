@@ -6,6 +6,7 @@ import com.zdf.util.URLConnectionDownloader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -42,31 +43,30 @@ public class Wan1688PageProcessor implements PageProcessor {
             pool.execute(new DownloadImgConsumer(imgUrlBlockQueen));
         }
 
-//        pool.shutdown();
+        pool.shutdown();
     }
     public void process(Page page){
+        String urlType = (String)page.getRequest().getExtra("urlType");
 
-        if(page.getUrl().toString().lastIndexOf(".html") == -1){
-            //获取列表信息
+        if("page".equals(urlType)){
+            System.out.println("====================获取下一页链接=======================");
+            //获取下一页链接
+            String nextUrl = page.getHtml().css(".page-next").xpath("//a[@class='dis-b']/@href").toString();
+            System.out.println(HTTP + nextUrl);
+            Request request = new Request(HTTP + nextUrl);
+            request.putExtra("urlType", "page");
+            page.addTargetRequest(request);
+
+            System.out.println("===================分页中的内容链接========================");
+            //分页中的内容链接
             List<String> contentUrlList = page.getHtml().css(".font-hide").xpath("//a/@href").all();
 
             for (String contentUrl : contentUrlList) {
                 System.out.println(contentUrl);
-                //Spider.create(wan1688ContentProcessor).addUrl(contentUrl).thread(1).run();
-                page.addTargetRequest(contentUrl);
+                Request requestContentUrl = new Request(contentUrl);
+                requestContentUrl.putExtra("urlType", "content");
+                page.addTargetRequest(requestContentUrl);
             }
-            System.out.println("===========================================");
-
-
-            //获取下一页链接
-//        List<String> nextTextList = page.getHtml().css(".page_box").xpath("//a[@class='a1']/text()").all();
-//        List<String> nextUrlList = page.getHtml().css(".page_box").xpath("//a[@class='a1']/@href").all();
-//        for (int i = 0; i < nextTextList.size(); i++) {
-//            if(nextTextList.get(i).trim().contains("下一页")){
-//                System.out.println(nextUrlList.get(i));
-//                page.addTargetRequest(nextUrlList.get(i));
-//            }
-//        }
         }else{
             String title = page.getHtml().css(".t1_newsshow").xpath("//h1/text()").toString();
             String editor = "dee";
@@ -80,14 +80,17 @@ public class Wan1688PageProcessor implements PageProcessor {
             }
             String content = selectable.replace("<div[^>]*>","").replace("</div[^>]*>","").toString();
             List<String> imgUrls = selectable.xpath(contentClass).xpath("//img/@src").all();
+            System.out.println(content);
 
             for (String imgUrl : imgUrls) {
                 System.out.println(imgUrl);
+                if(!imgUrl.contains(HTTP)){
+                    imgUrl = HTTP + imgUrl;
+                }
                 System.out.println(URLConnectionDownloader.getSuffix(imgUrl));
                 imgUrlBlockQueen.addImgUrl(imgUrl);
             }
         }
-
     }
 
     public Site getSite(){
@@ -103,12 +106,9 @@ public class Wan1688PageProcessor implements PageProcessor {
     public static void main(String[] args) {
         Wan1688PageProcessor test = new Wan1688PageProcessor();
         test.downloadImgThread();
-        Spider.create(test).addUrl("http://www.1688wan.com/news/").thread(1).run();
+        Request request = new Request("http://www.1688wan.com/news/");
+        request.putExtra("urlType", "page");
+        Spider.create(test).addRequest(request).thread(1).run();
 
-        try {
-            Thread.sleep(60000l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
