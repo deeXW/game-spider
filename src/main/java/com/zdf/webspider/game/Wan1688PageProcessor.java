@@ -67,7 +67,7 @@ public class Wan1688PageProcessor implements PageProcessor {
     public void process(Page page){
         String urlType = (String)page.getRequest().getExtra("urlType");
 
-        if("page".equals(urlType) && pageCount < 5 ){
+        if("page".equals(urlType) && pageCount < 2 ){
             pageCount++;
             System.out.println("====================获取下一页链接=======================");
             //获取下一页链接
@@ -105,7 +105,7 @@ public class Wan1688PageProcessor implements PageProcessor {
             String smallText = (String) page.getRequest().getExtra("smallText");
             String titlePicName = (String) page.getRequest().getExtra("titlePicName");
             String titlePicPath = "/d/file/p/wan/" + titlePicName;
-            String title = page.getHtml().xpath("//title/text()").toString();
+            String title = page.getHtml().xpath("//title/text()").toString().replace("_1688玩手游网","");
             String keyboard = page.getHtml().xpath("//meta[@name='keywords']/@content").toString();
             String userName = "625u";
             int classId = 2;
@@ -120,6 +120,11 @@ public class Wan1688PageProcessor implements PageProcessor {
                 contentClass = "//div[@id='wz-content']";
                 selectable = page.getHtml().xpath(contentClass);
             }
+//            if(){
+//                contentClass = "//div[@id='bosom_lf']";
+//                selectable = page.getHtml().xpath(contentClass);
+//            }
+
             String content = selectable.replace("<div[^>]*>","").replace("</div[^>]*>","").toString();
             List<String> imgUrls = selectable.xpath(contentClass).xpath("//img/@src").all();
             System.out.println(content);
@@ -133,54 +138,56 @@ public class Wan1688PageProcessor implements PageProcessor {
                 System.out.println(URLConnectionDownloader.getSuffix(imgUrl));
                 imgUrlBlockQueen.addImgUrl(imgUrl);
             }
-            System.out.println(content);
 
+            if(null == content || "".equals(content)){
+                logger.error("content is null URL: " + page.getUrl().toString());
+            }else{
+                //数据新增
+                EcmsNewsEntity ecmsNewsEntity = new EcmsNewsEntity();
+                ecmsNewsEntity.setTitle(title);
+                ecmsNewsEntity.setTruetime((int)time);
+                ecmsNewsEntity.setLastdotime((int)time);
+                ecmsNewsEntity.setNewstime((int)time);
+                ecmsNewsEntity.setUserid(1);
+                ecmsNewsEntity.setUsername(userName);
+                ecmsNewsEntity.setTitlepic(titlePicPath);
+                ecmsNewsEntity.setClassid(classId);
+                ecmsNewsEntity.setHavehtml(haveHtml);
+                ecmsNewsEntity.setKeyboard(keyboard);
+                ecmsNewsEntity.setSmalltext(smallText);
+                ecmsNewsEntity.setFmimg("");
+                ecmsNewsDao.insert(ecmsNewsEntity);
+                System.out.println(ecmsNewsEntity.getId());
 
+                EcmsNewsEntity ecmsNewsEntityUpdate = new EcmsNewsEntity();
+                ecmsNewsEntityUpdate.setId(ecmsNewsEntity.getId());
+                ecmsNewsEntityUpdate.setTitleurl("/news/"+ecmsNewsEntity.getId()+".html");
+                ecmsNewsEntityUpdate.setFilename(ecmsNewsEntity.getId().toString());
+                int retUpdate = ecmsNewsDao.update(ecmsNewsEntityUpdate);
+                System.out.println(retUpdate + "========ecmsNewsData1Dao========");
 
-            //数据新增
-            EcmsNewsEntity ecmsNewsEntity = new EcmsNewsEntity();
-            ecmsNewsEntity.setTitle(title);
-            ecmsNewsEntity.setTruetime((int)time);
-            ecmsNewsEntity.setLastdotime((int)time);
-            ecmsNewsEntity.setNewstime((int)time);
-            ecmsNewsEntity.setUserid(1);
-            ecmsNewsEntity.setUsername(userName);
-            ecmsNewsEntity.setTitlepic(titlePicPath);
-            ecmsNewsEntity.setClassid(classId);
-            ecmsNewsEntity.setHavehtml(haveHtml);
-            ecmsNewsEntity.setKeyboard(keyboard);
-            ecmsNewsEntity.setSmalltext(smallText);
-            ecmsNewsEntity.setFmimg("");
-            ecmsNewsDao.insert(ecmsNewsEntity);
-            System.out.println(ecmsNewsEntity.getId());
+                EcmsNewsData1Entity ecmsNewsData1Entity = new EcmsNewsData1Entity();
+                ecmsNewsData1Entity.setId(ecmsNewsEntity.getId());
+                ecmsNewsData1Entity.setClassid(classId);
+                ecmsNewsData1Entity.setInfotags(keyboard);
+                content = content.trim().replace(page.getUrl().toString(),"/news/"+ecmsNewsEntity.getId()+".html");
+                ecmsNewsData1Entity.setNewstext(content);
+                ecmsNewsData1Entity.setWriter(userName);
+                ecmsNewsData1Dao.insert(ecmsNewsData1Entity);
+                System.out.println("========ecmsNewsData1Dao========");
 
-            EcmsNewsEntity ecmsNewsEntityUpdate = new EcmsNewsEntity();
-            ecmsNewsEntityUpdate.setId(ecmsNewsEntity.getId());
-            ecmsNewsEntityUpdate.setTitleurl("/news/"+ecmsNewsEntity.getId()+".html");
-            ecmsNewsEntityUpdate.setFilename(ecmsNewsEntity.getId().toString());
-            int retUpdate = ecmsNewsDao.update(ecmsNewsEntityUpdate);
-            System.out.println(retUpdate + "========ecmsNewsData1Dao========");
+                EcmsNewsIndexEntity ecmsNewsIndexEntity = new EcmsNewsIndexEntity();
 
-            EcmsNewsData1Entity ecmsNewsData1Entity = new EcmsNewsData1Entity();
-            ecmsNewsData1Entity.setId(ecmsNewsEntity.getId());
-            ecmsNewsData1Entity.setClassid(classId);
-            ecmsNewsData1Entity.setInfotags(keyboard);
-            ecmsNewsData1Entity.setNewstext(content.trim());
-            ecmsNewsData1Entity.setWriter(userName);
-            ecmsNewsData1Dao.insert(ecmsNewsData1Entity);
-            System.out.println("========ecmsNewsData1Dao========");
-
-            EcmsNewsIndexEntity ecmsNewsIndexEntity = new EcmsNewsIndexEntity();
-
-            ecmsNewsIndexEntity.setId(ecmsNewsEntity.getId());
-            ecmsNewsIndexEntity.setClassid(classId);
-            ecmsNewsIndexEntity.setChecked(0);
-            ecmsNewsIndexEntity.setHavehtml(haveHtml);
-            ecmsNewsIndexEntity.setNewstime((int)time);
-            ecmsNewsIndexEntity.setTruetime((int)time);
-            ecmsNewsIndexEntity.setLastdotime((int)time);
-            ecmsNewsIndexDao.insert(ecmsNewsIndexEntity);
-            System.out.println("========ecmsNewsIndexDao========");
+                ecmsNewsIndexEntity.setId(ecmsNewsEntity.getId());
+                ecmsNewsIndexEntity.setClassid(classId);
+                ecmsNewsIndexEntity.setChecked(0);
+                ecmsNewsIndexEntity.setHavehtml(haveHtml);
+                ecmsNewsIndexEntity.setNewstime((int)time);
+                ecmsNewsIndexEntity.setTruetime((int)time);
+                ecmsNewsIndexEntity.setLastdotime((int)time);
+                ecmsNewsIndexDao.insert(ecmsNewsIndexEntity);
+                System.out.println("========ecmsNewsIndexDao========");
+            }
 
         }
     }

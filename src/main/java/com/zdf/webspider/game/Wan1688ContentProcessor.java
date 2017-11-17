@@ -61,6 +61,8 @@ public class Wan1688ContentProcessor implements PageProcessor {
             selectable = page.getHtml().xpath(contentClass);
         }
         String content = selectable.replace("<div[^>]*>","").replace("</div[^>]*>","").toString();
+        System.out.println(content);
+
         List<String> imgUrls = selectable.xpath(contentClass).xpath("//img/@src").all();
 
         for (String imgUrl : imgUrls) {
@@ -83,6 +85,6 @@ public class Wan1688ContentProcessor implements PageProcessor {
 
     public static void main(String[] args) {
         Wan1688ContentProcessor test = new Wan1688ContentProcessor();
-        Spider.create(test).addUrl("http://www.1688wan.com/news/zixun/201711/info_194293.html").thread(1).run();
+        Spider.create(test).addUrl("http://www.1688wan.com/news/zixun/201711/info_194438.html").thread(1).run();
     }
 }
