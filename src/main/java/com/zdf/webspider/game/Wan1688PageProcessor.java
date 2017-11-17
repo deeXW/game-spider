@@ -3,12 +3,16 @@ package com.zdf.webspider.game;
 import com.zdf.dao.dfwd.EcmsNewsDao;
 import com.zdf.dao.dfwd.EcmsNewsData1Dao;
 import com.zdf.dao.dfwd.EcmsNewsIndexDao;
+import com.zdf.entity.dfwd.EcmsNewsData1Entity;
+import com.zdf.entity.dfwd.EcmsNewsEntity;
+import com.zdf.entity.dfwd.EcmsNewsIndexEntity;
 import com.zdf.thread.DownloadImgConsumer;
 import com.zdf.thread.ImgUrlBlockQueen;
 import com.zdf.util.URLConnectionDownloader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -25,6 +29,7 @@ import java.util.concurrent.Executors;
 /**
  * Created by cheguo on 2017/4/7.
  */
+@Component
 public class Wan1688PageProcessor implements PageProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(Wan1688PageProcessor.class);
@@ -35,6 +40,7 @@ public class Wan1688PageProcessor implements PageProcessor {
     private static final String HTTP = "http://www.1688wan.com";
     private static final String UA = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2859.0 Safari/537.36";
 
+    private int pageCount = 1;
 
     @Autowired
     private EcmsNewsDao ecmsNewsDao;
@@ -45,7 +51,6 @@ public class Wan1688PageProcessor implements PageProcessor {
     @Autowired
     private EcmsNewsIndexDao ecmsNewsIndexDao;
 
-//    Wan1688ContentProcessor wan1688ContentProcessor = new Wan1688ContentProcessor();
 
     public void downloadImgThread(){
         int threadCount = 2;
@@ -62,7 +67,8 @@ public class Wan1688PageProcessor implements PageProcessor {
     public void process(Page page){
         String urlType = (String)page.getRequest().getExtra("urlType");
 
-        if("page".equals(urlType)){
+        if("page".equals(urlType) && pageCount < 5 ){
+            pageCount++;
             System.out.println("====================获取下一页链接=======================");
             //获取下一页链接
             String nextUrl = page.getHtml().css(".page-next").xpath("//a[@class='dis-b']/@href").toString();
@@ -95,7 +101,7 @@ public class Wan1688PageProcessor implements PageProcessor {
                 page.addTargetRequest(requestContentUrl);
             }
 
-        }else{
+        }else if("content".equals(urlType)){
             String smallText = (String) page.getRequest().getExtra("smallText");
             String titlePicName = (String) page.getRequest().getExtra("titlePicName");
             String titlePicPath = "/d/file/p/wan/" + titlePicName;
@@ -120,7 +126,7 @@ public class Wan1688PageProcessor implements PageProcessor {
 
             for (String imgUrl : imgUrls) {
                 System.out.println(imgUrl);
-                content.replace(imgUrl, "/d/file/p/wan/"+ URLConnectionDownloader.getSuffix(imgUrl));
+                content = content.replace(imgUrl, "/d/file/p/wan/"+ URLConnectionDownloader.getSuffix(imgUrl));
                 if(!imgUrl.contains("1688wan")){
                     imgUrl = HTTP + imgUrl;
                 }
@@ -128,6 +134,54 @@ public class Wan1688PageProcessor implements PageProcessor {
                 imgUrlBlockQueen.addImgUrl(imgUrl);
             }
             System.out.println(content);
+
+
+
+            //数据新增
+            EcmsNewsEntity ecmsNewsEntity = new EcmsNewsEntity();
+            ecmsNewsEntity.setTitle(title);
+            ecmsNewsEntity.setTruetime((int)time);
+            ecmsNewsEntity.setLastdotime((int)time);
+            ecmsNewsEntity.setNewstime((int)time);
+            ecmsNewsEntity.setUserid(1);
+            ecmsNewsEntity.setUsername(userName);
+            ecmsNewsEntity.setTitlepic(titlePicPath);
+            ecmsNewsEntity.setClassid(classId);
+            ecmsNewsEntity.setHavehtml(haveHtml);
+            ecmsNewsEntity.setKeyboard(keyboard);
+            ecmsNewsEntity.setSmalltext(smallText);
+            ecmsNewsEntity.setFmimg("");
+            ecmsNewsDao.insert(ecmsNewsEntity);
+            System.out.println(ecmsNewsEntity.getId());
+
+            EcmsNewsEntity ecmsNewsEntityUpdate = new EcmsNewsEntity();
+            ecmsNewsEntityUpdate.setId(ecmsNewsEntity.getId());
+            ecmsNewsEntityUpdate.setTitleurl("/news/"+ecmsNewsEntity.getId()+".html");
+            ecmsNewsEntityUpdate.setFilename(ecmsNewsEntity.getId().toString());
+            int retUpdate = ecmsNewsDao.update(ecmsNewsEntityUpdate);
+            System.out.println(retUpdate + "========ecmsNewsData1Dao========");
+
+            EcmsNewsData1Entity ecmsNewsData1Entity = new EcmsNewsData1Entity();
+            ecmsNewsData1Entity.setId(ecmsNewsEntity.getId());
+            ecmsNewsData1Entity.setClassid(classId);
+            ecmsNewsData1Entity.setInfotags(keyboard);
+            ecmsNewsData1Entity.setNewstext(content.trim());
+            ecmsNewsData1Entity.setWriter(userName);
+            ecmsNewsData1Dao.insert(ecmsNewsData1Entity);
+            System.out.println("========ecmsNewsData1Dao========");
+
+            EcmsNewsIndexEntity ecmsNewsIndexEntity = new EcmsNewsIndexEntity();
+
+            ecmsNewsIndexEntity.setId(ecmsNewsEntity.getId());
+            ecmsNewsIndexEntity.setClassid(classId);
+            ecmsNewsIndexEntity.setChecked(0);
+            ecmsNewsIndexEntity.setHavehtml(haveHtml);
+            ecmsNewsIndexEntity.setNewstime((int)time);
+            ecmsNewsIndexEntity.setTruetime((int)time);
+            ecmsNewsIndexEntity.setLastdotime((int)time);
+            ecmsNewsIndexDao.insert(ecmsNewsIndexEntity);
+            System.out.println("========ecmsNewsIndexDao========");
+
         }
     }
 
@@ -139,6 +193,13 @@ public class Wan1688PageProcessor implements PageProcessor {
                     .addHeader("Cookie","UM_distinctid=15fc266ec42698-04937d11d6c8e6-c303767-232800-15fc266ec439f1; JSESSIONID=FAC23C764A4BDA402512132AFF7B5EB4; CNZZDATA1254642433=769858982-1510791992-%7C1510791992; CNZZDATA1252898618=861325848-1510794143-%7C1510794143");
         }
         return site;
+    }
+
+    public void handleLinks(Wan1688PageProcessor wan1688PageProcessor){
+        wan1688PageProcessor.downloadImgThread();
+        Request request = new Request("http://www.1688wan.com/news/");
+        request.putExtra("urlType", "page");
+        Spider.create(wan1688PageProcessor).addRequest(request).thread(1).run();
     }
 
     public static void main(String[] args) {

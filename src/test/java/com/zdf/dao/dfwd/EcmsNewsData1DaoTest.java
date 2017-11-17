@@ -22,4 +22,19 @@ public class EcmsNewsData1DaoTest {
         System.out.println(entity.toString());
     }
 
+
+    @Test
+    public void insert(){
+        EcmsNewsData1Entity entity = new EcmsNewsData1Entity();
+        entity.setId(1);
+        entity.setClassid(2);
+        entity.setInfotags("111");
+        entity.setNewstext("111");
+        entity.setWriter("625u");
+
+        int ret = dao.insert(entity);
+        System.out.println(ret);
+
+    }
+
 }
