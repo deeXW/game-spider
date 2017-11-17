@@ -46,9 +46,13 @@ public class Wan1688ContentProcessor implements PageProcessor {
     }
 
     public void process(Page page){
-        String title = page.getHtml().css(".t1_newsshow").xpath("//h1/text()").toString();
-        String editor = "dee";
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String title = page.getHtml().xpath("//title/text()").toString();
+        String keyboard = page.getHtml().xpath("//meta[@name='keywords']/@content").toString();
+        String userName = "625u";
+        int classId = 2;
+        int haveHtml = 1;
+        Date date = new Date();
+        long time = date.getTime()/1000;
 
         String contentClass = "//div[@class='show_content']";
         Selectable selectable = page.getHtml().xpath(contentClass);

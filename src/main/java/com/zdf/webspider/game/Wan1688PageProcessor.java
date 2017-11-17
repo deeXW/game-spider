@@ -1,10 +1,14 @@
 package com.zdf.webspider.game;
 
+import com.zdf.dao.dfwd.EcmsNewsDao;
+import com.zdf.dao.dfwd.EcmsNewsData1Dao;
+import com.zdf.dao.dfwd.EcmsNewsIndexDao;
 import com.zdf.thread.DownloadImgConsumer;
 import com.zdf.thread.ImgUrlBlockQueen;
 import com.zdf.util.URLConnectionDownloader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -30,6 +34,16 @@ public class Wan1688PageProcessor implements PageProcessor {
     private static final String DOMAIN = "www.1688wan.com";
     private static final String HTTP = "http://www.1688wan.com";
     private static final String UA = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2859.0 Safari/537.36";
+
+
+    @Autowired
+    private EcmsNewsDao ecmsNewsDao;
+
+    @Autowired
+    private EcmsNewsData1Dao ecmsNewsData1Dao;
+
+    @Autowired
+    private EcmsNewsIndexDao ecmsNewsIndexDao;
 
 //    Wan1688ContentProcessor wan1688ContentProcessor = new Wan1688ContentProcessor();
 
@@ -60,17 +74,39 @@ public class Wan1688PageProcessor implements PageProcessor {
             System.out.println("===================分页中的内容链接========================");
             //分页中的内容链接
             List<String> contentUrlList = page.getHtml().css(".font-hide").xpath("//a/@href").all();
+            List<String> titlePicList = page.getHtml().xpath("//img[@class='lazy']/@data-url").all();
+            List<String> smallTextList = page.getHtml().xpath("//li[@class='pl20']//p/text()").all();
 
-            for (String contentUrl : contentUrlList) {
-                System.out.println(contentUrl);
-                Request requestContentUrl = new Request(contentUrl);
+            String titlePic = "";
+            for (int i = 0; i < contentUrlList.size(); i++) {
+                System.out.println(contentUrlList.get(i));
+
+                System.out.println();
+                titlePic = titlePicList.get(i);
+                if(!titlePic.contains("1688wan")){
+                    titlePic = HTTP + titlePic;
+                }
+                imgUrlBlockQueen.addImgUrl(titlePic);
+
+                Request requestContentUrl = new Request(contentUrlList.get(i));
                 requestContentUrl.putExtra("urlType", "content");
+                requestContentUrl.putExtra("smallText", smallTextList.get(i).trim());
+                requestContentUrl.putExtra("titlePicName", URLConnectionDownloader.getSuffix(titlePic));
                 page.addTargetRequest(requestContentUrl);
             }
+
         }else{
-            String title = page.getHtml().css(".t1_newsshow").xpath("//h1/text()").toString();
-            String editor = "dee";
-            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String smallText = (String) page.getRequest().getExtra("smallText");
+            String titlePicName = (String) page.getRequest().getExtra("titlePicName");
+            String titlePicPath = "/d/file/p/wan/" + titlePicName;
+            String title = page.getHtml().xpath("//title/text()").toString();
+            String keyboard = page.getHtml().xpath("//meta[@name='keywords']/@content").toString();
+            String userName = "625u";
+            int classId = 2;
+            int haveHtml = 1;
+            Date date = new Date();
+            long time = date.getTime()/1000;
+
 
             String contentClass = "//div[@class='show_content']";
             Selectable selectable = page.getHtml().xpath(contentClass);
@@ -84,12 +120,14 @@ public class Wan1688PageProcessor implements PageProcessor {
 
             for (String imgUrl : imgUrls) {
                 System.out.println(imgUrl);
-                if(!imgUrl.contains(HTTP)){
+                content.replace(imgUrl, "/d/file/p/wan/"+ URLConnectionDownloader.getSuffix(imgUrl));
+                if(!imgUrl.contains("1688wan")){
                     imgUrl = HTTP + imgUrl;
                 }
                 System.out.println(URLConnectionDownloader.getSuffix(imgUrl));
                 imgUrlBlockQueen.addImgUrl(imgUrl);
             }
+            System.out.println(content);
         }
     }
 

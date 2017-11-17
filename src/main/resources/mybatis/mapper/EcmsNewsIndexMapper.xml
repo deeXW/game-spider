@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.zdf.dao.dfwd.EcmsNewsIndexDao">
+	<resultMap id="BaseResultMap" type="com.zdf.entity.dfwd.EcmsNewsIndexEntity">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="classid" column="classid" jdbcType="SMALLINT" />
+		<result property="checked" column="checked" jdbcType="BIT" />
+		<result property="newstime" column="newstime" jdbcType="INTEGER" />
+		<result property="truetime" column="truetime" jdbcType="INTEGER" />
+		<result property="lastdotime" column="lastdotime" jdbcType="INTEGER" />
+		<result property="havehtml" column="havehtml" jdbcType="BIT" />
+	</resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,
+		classid,
+		checked,
+		newstime,
+		truetime,
+		lastdotime,
+		havehtml
+        ]]>
+    </sql>
+
+
+    <!--根据主键ID查询记录-->
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT <include refid="Base_Column_List" />
+        <![CDATA[
+        FROM www_96kaifa_com_ecms_news_index
+        WHERE
+		id = #{id} 
+        ]]>
+    </select>
+
+    <!--更新-->
+    <update id="update" parameterType="com.zdf.entity.dfwd.EcmsNewsIndexEntity" >
+        update www_96kaifa_com_ecms_news_index
+        <set>
+            <if test="null != classid" >
+                <![CDATA[ classid = #{classid} , ]]>
+			</if>
+            <if test="null != checked" >
+                <![CDATA[ checked = #{checked} , ]]>
+			</if>
+            <if test="null != newstime" >
+                <![CDATA[ newstime = #{newstime} , ]]>
+			</if>
+            <if test="null != truetime" >
+                <![CDATA[ truetime = #{truetime} , ]]>
+			</if>
+            <if test="null != lastdotime" >
+                <![CDATA[ lastdotime = #{lastdotime} , ]]>
+			</if>
+            <if test="null != havehtml" >
+                <![CDATA[ havehtml = #{havehtml}  ]]>
+			</if>
+		</set>
+        <![CDATA[
+        WHERE
+		id = #{id ,jdbcType=INTEGER} 
+        ]]>
+    </update>
+
+
+    <delete id="delById" parameterType="java.lang.Integer" >
+        <![CDATA[
+        DELETE FROM www_96kaifa_com_ecms_news_index WHERE
+		id = #{id} 
+        ]]>
+    </delete>
+
+    <!--新增 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.zdf.entity.dfwd.EcmsNewsIndexEntity">
+        INSERT INTO www_96kaifa_com_ecms_news_index
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != classid" >
+			    classid,
+            </if>
+            <if test="null != checked" >
+			    checked,
+            </if>
+            <if test="null != newstime" >
+			    newstime,
+            </if>
+            <if test="null != truetime" >
+			    truetime,
+            </if>
+            <if test="null != lastdotime" >
+			    lastdotime,
+            </if>
+            <if test="null != havehtml" >
+			    havehtml
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != classid" >
+                #{classid ,jdbcType=SMALLINT},
+            </if>
+            <if test="null != checked" >
+                #{checked ,jdbcType=BIT},
+            </if>
+            <if test="null != newstime" >
+                #{newstime ,jdbcType=INTEGER},
+            </if>
+            <if test="null != truetime" >
+                #{truetime ,jdbcType=INTEGER},
+            </if>
+            <if test="null != lastdotime" >
+                #{lastdotime ,jdbcType=INTEGER},
+            </if>
+            <if test="null != havehtml" >
+                #{havehtml ,jdbcType=BIT}
+            </if>
+        </trim>
+
+    </insert>
+
+    <!--查询数据列表-->
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zdf.dto.dfwd.QueryEcmsNewsIndexDto">
+        SELECT <include refid="Base_Column_List" />
+        FROM www_96kaifa_com_ecms_news_index
+        <where>
+        <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
+            <if test="null != classid" >
+                <![CDATA[ AND classid = #{classid ,jdbcType=SMALLINT} ]]>
+            </if>
+            <if test="null != checked" >
+                <![CDATA[ AND checked = #{checked ,jdbcType=BIT} ]]>
+            </if>
+            <if test="null != newstime" >
+                <![CDATA[ AND newstime = #{newstime ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != truetime" >
+                <![CDATA[ AND truetime = #{truetime ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != lastdotime" >
+                <![CDATA[ AND lastdotime = #{lastdotime ,jdbcType=INTEGER} ]]>
+            </if>
+            <if test="null != havehtml" >
+                <![CDATA[ AND havehtml = #{havehtml ,jdbcType=BIT} ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- ========================自定义mapper======================== -->
+
+</mapper>
+
