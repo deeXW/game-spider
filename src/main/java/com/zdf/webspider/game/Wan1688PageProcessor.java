@@ -67,7 +67,7 @@ public class Wan1688PageProcessor implements PageProcessor {
     public void process(Page page){
         String urlType = (String)page.getRequest().getExtra("urlType");
 
-        if("page".equals(urlType) && pageCount < 2 ){
+        if("page".equals(urlType) && pageCount < 6 ){
             pageCount++;
             System.out.println("====================获取下一页链接=======================");
             //获取下一页链接
@@ -84,7 +84,7 @@ public class Wan1688PageProcessor implements PageProcessor {
             List<String> smallTextList = page.getHtml().xpath("//li[@class='pl20']//p/text()").all();
 
             String titlePic = "";
-            for (int i = 0; i < contentUrlList.size(); i++) {
+            for (int i = contentUrlList.size()-1; 0 <= i; i--) {
                 System.out.println(contentUrlList.get(i));
 
                 System.out.println();
@@ -180,7 +180,7 @@ public class Wan1688PageProcessor implements PageProcessor {
 
                 ecmsNewsIndexEntity.setId(ecmsNewsEntity.getId());
                 ecmsNewsIndexEntity.setClassid(classId);
-                ecmsNewsIndexEntity.setChecked(0);
+                ecmsNewsIndexEntity.setChecked(1);
                 ecmsNewsIndexEntity.setHavehtml(haveHtml);
                 ecmsNewsIndexEntity.setNewstime((int)time);
                 ecmsNewsIndexEntity.setTruetime((int)time);
