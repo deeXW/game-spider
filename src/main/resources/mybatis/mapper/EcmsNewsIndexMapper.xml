@@ -75,9 +75,12 @@
     </delete>
 
     <!--新增 -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.zdf.entity.dfwd.EcmsNewsIndexEntity">
+    <insert id="insert" parameterType="com.zdf.entity.dfwd.EcmsNewsIndexEntity">
         INSERT INTO www_96kaifa_com_ecms_news_index
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != id" >
+                id,
+            </if>
             <if test="null != classid" >
 			    classid,
             </if>
@@ -98,6 +101,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != id" >
+                #{id},
+            </if>
             <if test="null != classid" >
                 #{classid ,jdbcType=SMALLINT},
             </if>
